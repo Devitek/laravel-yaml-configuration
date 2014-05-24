@@ -108,7 +108,7 @@ class YamlFileLoader extends FileLoader
             case 'yml':
             case 'yaml':
                 $parser  = new Parser();
-                $content = $parser->parse(file_get_contents($file));
+                $content = null === ($yaml = $parser->parse(file_get_contents($file))) ? [] : $yaml;
                 break;
         }
 
