@@ -1,0 +1,22 @@
+{
+    "name": "devitek/yaml-configuration",
+    "description": "Add YAML file support to Laravel Configuration",
+    "authors": [
+        {
+            "name": "Thomas SIEFFERT",
+            "email": "caporaldead@devitek.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/config": "4.x",
+        "illuminate/foundation": "4.x",
+        "symfony/yaml": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Devitek\\": "src/Devitek"
+        }
+    },
+    "minimum-stability": "dev"
+}
