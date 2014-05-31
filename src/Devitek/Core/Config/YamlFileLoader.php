@@ -10,6 +10,11 @@ class YamlFileLoader extends FileLoader
         return ['php', 'yml', 'yaml'];
     }
 
+    protected function getAllowedPathsHelper()
+    {
+        return ['app_path', 'base_path', 'public_path', 'storage_path'];
+    }
+
     public function load($environment, $group, $namespace = null)
     {
         $items = [];
@@ -109,9 +114,19 @@ class YamlFileLoader extends FileLoader
             case 'yaml':
                 $parser  = new Parser();
                 $content = null === ($yaml = $parser->parse(file_get_contents($file))) ? [] : $yaml;
+                $content = $this->parsePathsHelpers($content);
                 break;
         }
 
         return $content;
+    }
+
+    protected function parsePathsHelpers($data)
+    {
+        foreach ($this->getAllowedPathsHelper() as $pathHelper) {
+            $data = str_replace('%' . $pathHelper . '%', $pathHelper(), $data);
+        }
+
+        return $data;
     }
 } 
