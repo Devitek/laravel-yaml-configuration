@@ -80,7 +80,7 @@ class YamlFileLoader extends FileLoader
                 $items = array_merge($items, $this->parseContent($extension, $path));
             }
 
-            $path = $this->getPackagePath($env, $package, $group);
+            $path = $this->getPackagePath($env, $package, $group, $extension);
 
             if ($this->files->exists($path)) {
                 $items = array_merge($items, $this->parseContent($extension, $path));
@@ -90,14 +90,10 @@ class YamlFileLoader extends FileLoader
         return $items;
     }
 
-    protected function getPackagePath($env, $package, $group)
+    protected function getPackagePath($env, $package, $group, $extension='php')
     {
-        $result = [];
-
-        foreach ($this->getAllowedFileExtensions() as $extension) {
-            $file     = "packages/{$package}/{$env}/{$group}." . $extension;
-            $result[] = $this->defaultPath . '/' . $file;
-        }
+        $file     = "packages/{$package}/{$env}/{$group}." . $extension;
+        $result = $this->defaultPath . '/' . $file;
 
         return $result;
     }
