@@ -108,9 +108,7 @@ class YamlFileLoader extends FileLoader
                 break;
             case 'yml':
             case 'yaml':
-                $parser  = new Parser();
-                $content = null === ($yaml = $parser->parse(file_get_contents($file))) ? [] : $yaml;
-                $content = $this->parsePathsHelpers($content);
+                $content = $this->parseYamlOrLoadFromCache($file);
                 break;
         }
 
@@ -124,5 +122,24 @@ class YamlFileLoader extends FileLoader
         }
 
         return $data;
+    }
+    
+    protected function parseYamlOrLoadFromCache($file)
+    {
+        $cachefile = storage_path() . '/cache/yaml.config.cache.' . md5($file) . '.php';
+        
+        if (@filemtime($cachefile) < filemtime($file)) {
+
+            $parser = new Parser();
+            $content = null === ($yaml = $parser->parse(file_get_contents($file))) ? [] : $yaml;
+            $content = $this->parsePathsHelpers($content);
+            file_put_contents($cachefile, "<?php \r\n\r\n return " . var_export($content, true) . ";");
+
+        } else {
+
+            $content = $this->files->getRequire($cachefile);
+
+        }
+        return $content;
     }
 } 
