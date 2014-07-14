@@ -90,9 +90,9 @@ class YamlFileLoader extends FileLoader
         return $items;
     }
 
-    protected function getPackagePath($env, $package, $group, $extension='php')
+    protected function getPackagePath($env, $package, $group, $extension = 'php')
     {
-        $file     = "packages/{$package}/{$env}/{$group}." . $extension;
+        $file = "packages/{$package}/{$env}/{$group}." . $extension;
         $result = $this->defaultPath . '/' . $file;
 
         return $result;
