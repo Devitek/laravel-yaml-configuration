@@ -92,7 +92,7 @@ class YamlFileLoader extends FileLoader
 
     protected function getPackagePath($env, $package, $group, $extension = 'php')
     {
-        $file = "packages/{$package}/{$env}/{$group}." . $extension;
+        $file   = "packages/{$package}/{$env}/{$group}." . $extension;
         $result = $this->defaultPath . '/' . $file;
 
         return $result;
@@ -123,23 +123,21 @@ class YamlFileLoader extends FileLoader
 
         return $data;
     }
-    
+
     protected function parseYamlOrLoadFromCache($file)
     {
         $cachefile = storage_path() . '/cache/yaml.config.cache.' . md5($file) . '.php';
-        
-        if (@filemtime($cachefile) < filemtime($file)) {
 
-            $parser = new Parser();
+        if (@filemtime($cachefile) < filemtime($file)) {
+            $parser  = new Parser();
             $content = null === ($yaml = $parser->parse(file_get_contents($file))) ? [] : $yaml;
             $content = $this->parsePathsHelpers($content);
-            file_put_contents($cachefile, "<?php \r\n\r\n return " . var_export($content, true) . ";");
 
+            file_put_contents($cachefile, "<?php" . PHP_EOL . PHP_EOL . "return " . var_export($content, true) . ";");
         } else {
-
             $content = $this->files->getRequire($cachefile);
-
         }
+
         return $content;
     }
 } 
