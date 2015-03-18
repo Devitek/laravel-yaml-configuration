@@ -104,18 +104,19 @@ class LoadYamlConfiguration extends LoadConfiguration
     protected function parseYamlOrLoadFromCache($file)
     {
 
-	    $cachefile = $app->storagePath . '/yaml-config/cache.' . md5($file) . '.php';
+	    $cachefile = storage_path() . '/yaml-config/cache.' . md5($file) . '.php';
 
         if (@filemtime($cachefile) < filemtime($file)) {
+	        
             $parser  = new Parser();
             $content = null === ($yaml = $parser->parse(file_get_contents($file))) ? [] : $yaml;
             $content = $this->parsePathsHelpers($content);
-
             file_put_contents($cachefile, "<?php" . PHP_EOL . PHP_EOL . "return " . var_export($content, true) . ";");
+
         } else {
 	     	
             $content = require $cachefile;
-            dd($content);
+
         }
 
         return $content;
