@@ -1,7 +1,6 @@
 <?php namespace Devitek\Core\Foundation;
 
 use Devitek\Core\Config\YamlFileLoader;
-use Illuminate\Filesystem\Filesystem;
 
 /**
  * Class Application
@@ -9,11 +8,20 @@ use Illuminate\Filesystem\Filesystem;
  */
 class Application extends \Illuminate\Foundation\Application
 {
+	
     /**
-     * @return YamlFileLoader
+     *	replace LoadConfiguration with our own version 
      */
-    public function getConfigLoader()
-    {
-        return new YamlFileLoader(new Filesystem, $this['path'] . '/config');
-    }
+     
+ 	public function bootstrapWith(array $bootstrappers)
+	{
+	
+		$key = array_search('Illuminate\Foundation\Bootstrap\LoadConfiguration', $bootstrappers); 
+		$bootstrappers[$key] = 'Devitek\Core\Config\LoadYamlConfiguration'; 
+
+		parent::bootstrapWith($bootstrappers);
+	 
+	}
+	
+	
 }
