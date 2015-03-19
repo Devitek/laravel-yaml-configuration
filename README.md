@@ -1,24 +1,24 @@
-# Add Yaml file support for Laravel 4 Configuration
+# Add Yaml file support for Laravel 5 Configuration
 
 This package uses Symfony/Yaml parser.
 
 ## Installing
 
-Add ```"devitek/yaml-configuration": "*"``` to your **composer.json** by running :
+Add ```"devitek/yaml-configuration": "1.*"``` to your **composer.json** by running :
 
     php composer.phar require devitek/yaml-configuration
 
-And select version : ```0.*```
+And select version : ```1.*```
 
 ## Add support in Laravel
 
 You have to replace
 
-`$app = new Illuminate\Foundation\Application;`
+`$app = new Illuminate\Foundation\Application(`
 
 with
 
-`$app = new \Devitek\Core\Foundation\Application;`
+`$app = new Devitek\Core\Foundation\Application(`
 
 in **bootstrap/start.php**.
 
