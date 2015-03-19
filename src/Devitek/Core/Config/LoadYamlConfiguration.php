@@ -112,8 +112,8 @@ class LoadYamlConfiguration extends LoadConfiguration
             $parser  = new Parser();
             $content = null === ($yaml = $parser->parse(file_get_contents($file))) ? [] : $yaml;
             $content = $this->parsePathsHelpers($content);
-            if ( !File::exists($cachedir) ){
-	            File::makeDirectory($cachedir);
+            if ( !file_exists($cachedir) ){
+	            @mkdir($cachedir, 0755);
 	        }
             file_put_contents($cachefile, "<?php" . PHP_EOL . PHP_EOL . "return " . var_export($content, true) . ";");
 
