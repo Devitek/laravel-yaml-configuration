@@ -4,13 +4,13 @@
     "authors": [
         {
             "name": "Thomas SIEFFERT",
-            "email": "caporaldead@devitek.fr"
+            "email": "thomas.sieffert@devitek.fr"
         }
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/config": "5.x",
-        "illuminate/foundation": "5.x",
+        "illuminate/config": "~5.*",
+        "illuminate/foundation": "~5.*",
         "symfony/yaml": "2.*"
     },
     "autoload": {
