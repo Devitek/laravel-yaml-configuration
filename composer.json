@@ -9,8 +9,8 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/config": "~5.*",
-        "illuminate/foundation": "~5.*",
+        "illuminate/config": "5.*",
+        "illuminate/foundation": "5.*",
         "symfony/yaml": "2.*"
     },
     "autoload": {
