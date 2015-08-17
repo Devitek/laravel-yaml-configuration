@@ -122,7 +122,7 @@ class LoadYamlConfiguration extends LoadConfiguration
      */
     protected function parseYamlOrLoadFromCache($file)
     {
-        $cachedir  = sprintf('%s/devitek/cache/yaml-configuration/', storage_path());
+        $cachedir  = sprintf('%s/yaml-configuration/', storage_path());
         $cachefile = $cachedir . 'cache.' . md5($file) . '.php';
 
         if (@filemtime($cachefile) < filemtime($file)) {
