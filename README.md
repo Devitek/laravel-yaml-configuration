@@ -49,20 +49,14 @@ debug: false
 key: foobar
 ```
 
-## Paths Helpers
+## Use functions
 
-You can use paths helpers provided by Laravel like that :
+You can use any php functions like that :
 
 ```yaml
 routes_file: %app_path%/routes.php
-unit_test: %base_path%/behat.yml
-main_style: %public_path%/css/style.css
-manifest: %storage_path%/meta
+unit_test: %base_path:behat.yml%
+something: %sprintf:hell %s,world%
 ```
-
-* %app\_path% refers to app\_path()
-* %base\_path% refers to base\_path()
-* %public\_path% refers to public\_path()
-* %storage\_path% refers to storage\_path()
 
 Enjoy it ! Feel free to fork :) !

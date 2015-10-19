@@ -22,16 +22,6 @@ class LoadYamlConfiguration extends LoadConfiguration
     }
 
     /**
-     * Retutnrs allowed paths helpers
-     *
-     * @return array
-     */
-    protected function getAllowedPathsHelper()
-    {
-        return ['app_path', 'base_path', 'public_path', 'storage_path'];
-    }
-
-    /**
      * Load the configuration items from all of the files.
      *
      * @param  Application $app
@@ -98,19 +88,34 @@ class LoadYamlConfiguration extends LoadConfiguration
     }
 
     /**
-     * Parse and replace paths
+     * Parse
      *
-     * @param $data
+     * @param $value
      *
      * @return mixed
      */
-    protected function parsePathsHelpers($data)
+    protected function parseValues(&$value)
     {
-        foreach ($this->getAllowedPathsHelper() as $pathHelper) {
-            $data = str_replace('%' . $pathHelper . '%', $pathHelper(), $data);
+        if (! is_string($value)) {
+            return true;
         }
 
-        return $data;
+        preg_match_all('/%([a-zA-Z_]+)(?::(.*))?%/', $value, $matches);
+
+        if (empty(array_shift($matches))) {
+            return true;
+        }
+
+        $function = current(array_shift($matches));
+
+        if (! function_exists($function)) {
+            return true;
+        }
+
+        $args  = current(array_shift($matches));
+        $value = call_user_func_array($function, explode(',', $args));
+
+        return true;
     }
 
     /**
@@ -122,13 +127,14 @@ class LoadYamlConfiguration extends LoadConfiguration
      */
     protected function parseYamlOrLoadFromCache($file)
     {
-        $cachedir  = sprintf('%s/yaml-configuration/', storage_path());
+        $cachedir  = sprintf('%s/framework/cache/yaml-configuration/', storage_path());
         $cachefile = $cachedir . 'cache.' . md5($file) . '.php';
 
         if (@filemtime($cachefile) < filemtime($file)) {
             $parser  = new Parser();
             $content = null === ($yaml = $parser->parse(file_get_contents($file))) ? [] : $yaml;
-            $content = $this->parsePathsHelpers($content);
+
+            array_walk_recursive($content, [$this, 'parseValues']);
 
             if (! file_exists($cachedir)) {
                 @mkdir($cachedir, 0755);
