@@ -70,24 +70,6 @@ class LoadYamlConfiguration extends LoadConfiguration
     }
 
     /**
-     * Get the configuration file nesting path.
-     *
-     * @param  \Symfony\Component\Finder\SplFileInfo $file
-     *
-     * @return string
-     */
-    protected function getConfigurationNesting(SplFileInfo $file)
-    {
-        $directory = dirname($file->getRealPath());
-
-        if ($tree = trim(str_replace(config_path(), '', $directory), DIRECTORY_SEPARATOR)) {
-            $tree = str_replace(DIRECTORY_SEPARATOR, '.', $tree) . '.';
-        }
-
-        return $tree;
-    }
-
-    /**
      * Parse
      *
      * @param $value
