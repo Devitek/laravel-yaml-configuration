@@ -25,7 +25,7 @@ class LoadYamlConfiguration extends LoadConfiguration
      * Load the configuration items from all of the files.
      *
      * @param  Application $app
-     * @param  Repository  $config
+     * @param  Repository $config
      *
      * @return void
      */
@@ -60,13 +60,31 @@ class LoadYamlConfiguration extends LoadConfiguration
 
         foreach ($this->getAllowedFileExtensions() as $extension) {
             foreach (Finder::create()->files()->name('*.' . $extension)->in($app->configPath()) as $file) {
-                $nesting = $this->getConfigurationNesting($file);
+                $nesting = $this->getConfigurationNesting($file, config_path());
 
                 $files[$nesting . basename($file->getRealPath(), '.' . $extension)] = $file->getRealPath();
             }
         }
 
         return $files;
+    }
+
+    /**
+     * Get the configuration file nesting path.
+     *
+     * @param  \Symfony\Component\Finder\SplFileInfo $file
+     *
+     * @return string
+     */
+    protected function getConfigurationNesting(SplFileInfo $file, $configPath)
+    {
+        $directory = dirname($file->getRealPath());
+
+        if ($tree = trim(str_replace(config_path(), '', $directory), DIRECTORY_SEPARATOR)) {
+            $tree = str_replace(DIRECTORY_SEPARATOR, '.', $tree) . '.';
+        }
+
+        return $tree;
     }
 
     /**
@@ -78,7 +96,7 @@ class LoadYamlConfiguration extends LoadConfiguration
      */
     protected function parseValues(&$value)
     {
-        if (! is_string($value)) {
+        if (!is_string($value)) {
             return true;
         }
 
@@ -90,11 +108,11 @@ class LoadYamlConfiguration extends LoadConfiguration
 
         $function = current(array_shift($matches));
 
-        if (! function_exists($function)) {
+        if (!function_exists($function)) {
             return true;
         }
 
-        $args  = current(array_shift($matches));
+        $args = current(array_shift($matches));
         $value = call_user_func_array($function, explode(',', $args));
 
         return true;
@@ -109,16 +127,16 @@ class LoadYamlConfiguration extends LoadConfiguration
      */
     protected function parseYamlOrLoadFromCache($file)
     {
-        $cachedir  = sprintf('%s/framework/cache/yaml-configuration/', storage_path());
+        $cachedir = sprintf('%s/framework/cache/yaml-configuration/', storage_path());
         $cachefile = $cachedir . 'cache.' . md5($file) . '.php';
 
         if (@filemtime($cachefile) < filemtime($file)) {
-            $parser  = new Parser();
+            $parser = new Parser();
             $content = null === ($yaml = $parser->parse(file_get_contents($file))) ? [] : $yaml;
 
             array_walk_recursive($content, [$this, 'parseValues']);
 
-            if (! file_exists($cachedir)) {
+            if (!file_exists($cachedir)) {
                 @mkdir($cachedir, 0755);
             }
 
@@ -129,4 +147,4 @@ class LoadYamlConfiguration extends LoadConfiguration
 
         return $content;
     }
-} 
+}
