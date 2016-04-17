@@ -1,3 +1,10 @@
+# 2016-04-17
+
+Update to 3.0 :
+
+- Merge PR #15 from @178inaba : illuminate/foundation do not exists anymore
+- Merge PR #16 from @178inaba : Add badges
+
 # 2015-10-19
 
 Update to 2.1 :
