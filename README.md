@@ -1,5 +1,10 @@
 # Add Yaml file support for Laravel 5.1 Configuration
 
+[![Latest Stable Version](https://poser.pugx.org/devitek/yaml-configuration/v/stable)](https://packagist.org/packages/devitek/yaml-configuration)
+[![Total Downloads](https://poser.pugx.org/devitek/yaml-configuration/downloads)](https://packagist.org/packages/devitek/yaml-configuration)
+[![Latest Unstable Version](https://poser.pugx.org/devitek/yaml-configuration/v/unstable)](https://packagist.org/packages/devitek/yaml-configuration)
+[![License](https://poser.pugx.org/devitek/yaml-configuration/license)](https://packagist.org/packages/devitek/yaml-configuration)
+
 This package uses Symfony/Yaml parser.
 
 ## Installing
