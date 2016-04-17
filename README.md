@@ -16,10 +16,11 @@ And select version : ```2.*```
 
 You have to add (or merge)
 
-```
+```php
 protected function bootstrappers()
 {
-    return array_merge($this->bootstrappers, [\\Devitek\\Core\\Config\\LoadYamlConfiguration::class]);
+    $this->bootstrappers[] = 'Devitek\Core\Config\LoadYamlConfiguration';
+    return $this->bootstrappers;
 }
 ```
 
