@@ -1,4 +1,4 @@
-# Add Yaml file support for Laravel 5.1 Configuration
+# Add Yaml file support for Laravel 5.2 Configuration
 
 [![Latest Stable Version](https://poser.pugx.org/devitek/yaml-configuration/v/stable)](https://packagist.org/packages/devitek/yaml-configuration)
 [![Total Downloads](https://poser.pugx.org/devitek/yaml-configuration/downloads)](https://packagist.org/packages/devitek/yaml-configuration)
@@ -9,13 +9,13 @@ This package uses Symfony/Yaml parser.
 
 ## Installing
 
-Add ```"devitek/yaml-configuration": "2.*"``` to your **composer.json** by running :
+Add ```"devitek/yaml-configuration": "3.1"``` to your **composer.json** by running :
 
 ```
 php composer.phar require devitek/yaml-configuration
 ```
 
-And select version : ```2.*```
+And select version : ```3.1```
 
 ## Add support in Laravel
 

@@ -1,3 +1,9 @@
+# 2016-06-25
+
+Update to 3.1 :
+
+- Fix #17 from @Under-Warz : Update dep to YAML 3
+
 # 2016-04-17
 
 Update to 3.0 :
