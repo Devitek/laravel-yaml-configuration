@@ -1,5 +1,6 @@
 {
     "name": "devitek/yaml-configuration",
+    "license": "MIT",
     "description": "Add YAML file support to Laravel Configuration",
     "authors": [
         {
@@ -9,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "laravel/framework": ">=5.2",
+        "laravel/framework": "~5.2",
         "symfony/yaml": "3.*"
     },
     "autoload": {
@@ -17,5 +18,5 @@
             "Devitek\\": "src/Devitek"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
